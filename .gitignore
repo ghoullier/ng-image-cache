@@ -1,0 +1,6 @@
+# Ignore specific plateforms files
+.DS_STORE
+
+# Ignore app generated files
+/node_modules/
+/npm-debug.log

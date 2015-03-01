@@ -1,0 +1,33 @@
+{
+  "name": "ng-image-cache",
+  "version": "1.0.0",
+  "description": "Angular image cache module",
+  "main": "dist/ng-image-cache.js",
+  "devDependencies": {
+    "browserify": "^9.0.3",
+    "browserify-ngannotate": "^0.7.1",
+    "http-server": "^0.7.5"
+  },
+  "scripts": {
+    "build": "browserify src/module.js -t browserify-ngannotate -o dist/ng-image-cache.js",
+
+    "preserver": "npm run build",
+    "server": "hs ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ghoullier/ng-image-cache.git"
+  },
+  "keywords": [
+    "angular"
+  ],
+  "author": {
+    "name": "Grégory Houllier",
+    "url": "https://twitter.com/ghoullier"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ghoullier/ng-image-cache/issues"
+  },
+  "homepage": "https://github.com/ghoullier/ng-image-cache"
+}
