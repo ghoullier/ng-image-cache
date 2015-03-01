@@ -1,4 +1,4 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"/Users/ghoullier/GitHub/ng-image-cache/src/directives/image.js":[function(require,module,exports){
 'use strict';
 
 var DEFAULT_BASE_64_DATA = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
@@ -6,12 +6,16 @@ var DEFAULT_BASE_64_DATA = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BA
 /**
  * @ngInject()
  */
-function imageDirective(ImageCache) {
+function uiImageDirective(ImageCache) {
   return {
     link: link,
     restrict: 'E',
     replace: true,
-    template: '<img title="ngImageCache" />'
+    scope: {
+      src: '@',
+      title: '@'
+    },
+    template: '<img title="{{title}}" />'
   };
 
   function link(scope, element, attributes) {
@@ -25,11 +29,11 @@ function imageDirective(ImageCache) {
     ;
   }
 }
-imageDirective.$inject = ["ImageCache"];
+uiImageDirective.$inject = ["ImageCache"];
 
-module.exports = imageDirective;
+module.exports = uiImageDirective;
 
-},{}],2:[function(require,module,exports){
+},{}],"/Users/ghoullier/GitHub/ng-image-cache/src/module.js":[function(require,module,exports){
 'use strict';
 
 angular
@@ -44,7 +48,7 @@ angular
   .directive('uiImage', require('./directives/image'))
 ;
 
-},{"./directives/image":1,"./services/cache":3,"./services/data":4,"./services/loader":5}],3:[function(require,module,exports){
+},{"./directives/image":"/Users/ghoullier/GitHub/ng-image-cache/src/directives/image.js","./services/cache":"/Users/ghoullier/GitHub/ng-image-cache/src/services/cache.js","./services/data":"/Users/ghoullier/GitHub/ng-image-cache/src/services/data.js","./services/loader":"/Users/ghoullier/GitHub/ng-image-cache/src/services/loader.js"}],"/Users/ghoullier/GitHub/ng-image-cache/src/services/cache.js":[function(require,module,exports){
 'use strict';
 
 var cache = sessionStorage;
@@ -81,7 +85,7 @@ ImageCacheFactory.$inject = ["$q", "ImageData"];
 
 module.exports = ImageCacheFactory;
 
-},{}],4:[function(require,module,exports){
+},{}],"/Users/ghoullier/GitHub/ng-image-cache/src/services/data.js":[function(require,module,exports){
 'use strict';
 
 var canvas = document.createElement('canvas');
@@ -126,7 +130,7 @@ ImageDataFactory.$inject = ["$q", "ImageLoader"];
 
 module.exports = ImageDataFactory;
 
-},{}],5:[function(require,module,exports){
+},{}],"/Users/ghoullier/GitHub/ng-image-cache/src/services/loader.js":[function(require,module,exports){
 'use strict';
 
 /**
@@ -157,4 +161,4 @@ ImageLoaderFactory.$inject = ["$q"];
 
 module.exports = ImageLoaderFactory;
 
-},{}]},{},[2]);
+},{}]},{},["/Users/ghoullier/GitHub/ng-image-cache/src/module.js"]);

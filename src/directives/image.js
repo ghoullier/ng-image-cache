@@ -5,12 +5,16 @@ var DEFAULT_BASE_64_DATA = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BA
 /**
  * @ngInject()
  */
-function imageDirective(ImageCache) {
+function uiImageDirective(ImageCache) {
   return {
     link: link,
     restrict: 'E',
     replace: true,
-    template: '<img title="ngImageCache" />'
+    scope: {
+      src: '@',
+      title: '@'
+    },
+    template: '<img title="{{title}}" />'
   };
 
   function link(scope, element, attributes) {
@@ -25,4 +29,4 @@ function imageDirective(ImageCache) {
   }
 }
 
-module.exports = imageDirective;
+module.exports = uiImageDirective;

@@ -6,13 +6,15 @@
   "devDependencies": {
     "browserify": "^9.0.3",
     "browserify-ngannotate": "^0.7.1",
-    "http-server": "^0.7.5"
+    "http-server": "^0.7.5",
+    "watchify": "^2.4.0"
   },
   "scripts": {
     "build": "browserify src/module.js -t browserify-ngannotate -o dist/ng-image-cache.js",
 
-    "preserver": "npm run build",
-    "server": "hs ."
+    "start": "hs .",
+
+    "watch": "watchify  src/module.js -t browserify-ngannotate -o dist/ng-image-cache.js"
   },
   "repository": {
     "type": "git",
