@@ -20,7 +20,6 @@ function uiImageDirective(ImageCache) {
 
   function link(scope, element, attributes) {
     element.attr('src', DEFAULT_BASE_64_DATA);
-
     ImageCache
       .get(attributes.src)
       .then(function onGetImageData(base64) {
