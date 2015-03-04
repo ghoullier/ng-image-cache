@@ -1,11 +1,12 @@
 'use strict';
 
-angular
+module.exports = angular
   .module('ngImageCache', [
     'ng'
   ])
 
-  .factory('ImageCache', require('./services/cache'))
+  .provider('ImageCache', require('./services/cache'))
+
   .factory('ImageData', require('./services/data'))
   .factory('ImageLoader', require('./services/loader'))
 

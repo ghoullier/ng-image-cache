@@ -1,4 +1,4 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"/Users/ghoullier/GitHub/ng-image-cache/src/directives/image.js":[function(require,module,exports){
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 
 var DEFAULT_BASE_64_DATA = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
@@ -32,59 +32,75 @@ uiImageDirective.$inject = ["ImageCache"];
 
 module.exports = uiImageDirective;
 
-},{}],"/Users/ghoullier/GitHub/ng-image-cache/src/module.js":[function(require,module,exports){
+},{}],2:[function(require,module,exports){
 'use strict';
 
-angular
+module.exports = angular
   .module('ngImageCache', [
     'ng'
   ])
 
-  .factory('ImageCache', require('./services/cache'))
+  .provider('ImageCache', require('./services/cache'))
+
   .factory('ImageData', require('./services/data'))
   .factory('ImageLoader', require('./services/loader'))
 
   .directive('uiImage', require('./directives/image'))
 ;
 
-},{"./directives/image":"/Users/ghoullier/GitHub/ng-image-cache/src/directives/image.js","./services/cache":"/Users/ghoullier/GitHub/ng-image-cache/src/services/cache.js","./services/data":"/Users/ghoullier/GitHub/ng-image-cache/src/services/data.js","./services/loader":"/Users/ghoullier/GitHub/ng-image-cache/src/services/loader.js"}],"/Users/ghoullier/GitHub/ng-image-cache/src/services/cache.js":[function(require,module,exports){
+},{"./directives/image":1,"./services/cache":3,"./services/data":4,"./services/loader":5}],3:[function(require,module,exports){
 'use strict';
-
-var cache = sessionStorage;
 
 /**
  * @ngInject()
  */
-function ImageCacheFactory($q, ImageData) {
+function ImageCacheProvider() {
+  // Default storage strategy
+  var storage = window.sessionStorage;
+
+  $get.$inject = ["$q", "ImageData"];
   return {
-    get: get
+    $get: $get,
+    setStorage: setStorage
   };
 
-  function get(uri) {
-    return $q(function async(resolve) {
-      if (cached(uri)) {
-        resolve(cache[uri]);
-      } else {
-        ImageData.get(uri).then(function onGetData(data) {
-          cache[uri] = data;
-          resolve(data);
-        }, function onError() {
-          cache[uri] = uri;
-          resolve(uri);
-        });
-      }
-    });
+  /**
+   * @ngInject()
+   */
+  function $get($q, ImageData) {
+    return {
+      get: get
+    };
+
+    function get(uri) {
+      return $q(function async(resolve) {
+        if (cached(uri)) {
+          resolve(storage[uri]);
+        } else {
+          ImageData.get(uri).then(function onGetData(data) {
+            storage[uri] = data;
+            resolve(data);
+          }, function onError() {
+            storage[uri] = uri;
+            resolve(uri);
+          });
+        }
+      });
+    }
+  }
+
+  function setStorage(newStorage) {
+    storage = newStorage;
   }
 
   function cached(key) {
-    return key in cache;
+    return key in storage;
   }
 }
-ImageCacheFactory.$inject = ["$q", "ImageData"];
 
-module.exports = ImageCacheFactory;
+module.exports = ImageCacheProvider;
 
-},{}],"/Users/ghoullier/GitHub/ng-image-cache/src/services/data.js":[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 'use strict';
 
 var canvas = document.createElement('canvas');
@@ -129,7 +145,7 @@ ImageDataFactory.$inject = ["$q", "ImageLoader"];
 
 module.exports = ImageDataFactory;
 
-},{}],"/Users/ghoullier/GitHub/ng-image-cache/src/services/loader.js":[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 'use strict';
 
 /**
@@ -160,4 +176,4 @@ ImageLoaderFactory.$inject = ["$q"];
 
 module.exports = ImageLoaderFactory;
 
-},{}]},{},["/Users/ghoullier/GitHub/ng-image-cache/src/module.js"]);
+},{}]},{},[2]);
