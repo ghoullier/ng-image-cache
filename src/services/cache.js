@@ -1,34 +1,49 @@
 'use strict';
 
-var cache = sessionStorage;
-
 /**
  * @ngInject()
  */
-function ImageCacheFactory($q, ImageData) {
+function ImageCacheProvider() {
+  // Default storage strategy
+  var storage = window.sessionStorage;
+
   return {
-    get: get
+    $get: $get,
+    setStorage: setStorage
   };
 
-  function get(uri) {
-    return $q(function async(resolve) {
-      if (cached(uri)) {
-        resolve(cache[uri]);
-      } else {
-        ImageData.get(uri).then(function onGetData(data) {
-          cache[uri] = data;
-          resolve(data);
-        }, function onError() {
-          cache[uri] = uri;
-          resolve(uri);
-        });
-      }
-    });
+  /**
+   * @ngInject()
+   */
+  function $get($q, ImageData) {
+    return {
+      get: get
+    };
+
+    function get(uri) {
+      return $q(function async(resolve) {
+        if (cached(uri)) {
+          resolve(storage[uri]);
+        } else {
+          ImageData.get(uri).then(function onGetData(data) {
+            storage[uri] = data;
+            resolve(data);
+          }, function onError() {
+            storage[uri] = uri;
+            resolve(uri);
+          });
+        }
+      });
+    }
+  }
+
+  function setStorage(newStorage) {
+    storage = newStorage;
   }
 
   function cached(key) {
-    return key in cache;
+    return key in storage;
   }
 }
 
-module.exports = ImageCacheFactory;
+module.exports = ImageCacheProvider;
