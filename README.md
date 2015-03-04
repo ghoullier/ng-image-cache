@@ -1,5 +1,7 @@
 # Angular image cache module
 
+## GETTING STARTED
+
 ```js
 angular
   .module('demo', [
@@ -13,3 +15,6 @@ angular
 ```
 
 Image is loaded using javascript, content is stored in sessionStorage for next loading
+
+
+## [CHANGELOG](CHANGELOG.md)
