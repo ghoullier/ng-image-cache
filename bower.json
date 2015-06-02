@@ -1,0 +1,9 @@
+{
+  "name": "ng-image-cache",
+  "version": "0.3.0",
+  "main": "dist/ng-image-cache.js",
+  "ignore": [
+    ".jshintrc",
+    "**/*.md"
+  ]
+}
