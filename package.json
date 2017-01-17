@@ -1,20 +1,18 @@
 {
   "name": "ng-image-cache",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Angular image cache module",
   "main": "dist/ng-image-cache.js",
   "devDependencies": {
     "bower": "^1.4.1",
-    "browserify": "^9.0.3",
-    "browserify-ngannotate": "^0.7.1",
-    "http-server": "^0.7.5",
-    "watchify": "^2.4.0"
+    "browserify": "^13.3.0",
+    "browserify-ngannotate": "^2.0.0",
+    "http-server": "^0.9.0",
+    "watchify": "^3.8.0"
   },
   "scripts": {
     "build": "browserify src/module.js -t browserify-ngannotate -o dist/ng-image-cache.js",
-
     "start": "hs .",
-
     "watch": "watchify src/module.js -t browserify-ngannotate -o dist/ng-image-cache.js"
   },
   "repository": {

@@ -11,10 +11,10 @@ angular
 ```
 
 ```html
-<ui-image data-src="http://localhost/images/test.png" data-title="Test"></ui-image>
+<ui-image ui-src="'http://localhost/images/test.png'" ui-title="'Test'"></ui-image>
 ```
 
-Image is loaded using javascript, content is stored in sessionStorage for next loading
+Image is loaded using javascript, content is stored in DOMStorage (sessionStorage or localStorage) for next loading
 
 ## CONFIGURE
 
