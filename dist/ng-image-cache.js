@@ -6,29 +6,29 @@ var DEFAULT_BASE_64_DATA = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BA
 /**
  * @ngInject()
  */
-function uiImageDirective(ImageCache) {
+function uiImageDirective($parse, ImageCache) {
   return {
     link: link,
     restrict: 'E',
     replace: true,
     scope: {
-      src: '@',
-      title: '@'
+      uiSrc: '=',
+      uiTitle: '='
     },
-    template: '<img title="{{title}}" />'
+    template: '<img title="{{uiTitle}}" />'
   };
 
   function link(scope, element, attributes) {
     element.attr('src', DEFAULT_BASE_64_DATA);
     ImageCache
-      .get(attributes.src)
+      .get(scope.uiSrc)
       .then(function onGetImageData(base64) {
         element.attr('src', base64);
       })
     ;
   }
 }
-uiImageDirective.$inject = ["ImageCache"];
+uiImageDirective.$inject = ["$parse", "ImageCache"];
 
 module.exports = uiImageDirective;
 
