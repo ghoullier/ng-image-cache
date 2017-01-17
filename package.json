@@ -11,9 +11,9 @@
     "watchify": "^3.8.0"
   },
   "scripts": {
-    "build": "browserify src/module.js -t browserify-ngannotate -o dist/ng-image-cache.js",
+    "build": "browserify -t browserify-ngannotate src/module.js > dist/ng-image-cache.js",
     "start": "hs .",
-    "watch": "watchify src/module.js -t browserify-ngannotate -o dist/ng-image-cache.js"
+    "watch": "watchify -t browserify-ngannotate src/module.js > dist/ng-image-cache.js"
   },
   "repository": {
     "type": "git",
